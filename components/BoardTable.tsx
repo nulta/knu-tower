@@ -1,23 +1,31 @@
-export function BoardTable() {
+import { PostManager, PostCategory } from "/core/PostManager.ts"
+import { IdGenerator } from "/core/libs/IdGenerator.ts"
+
+export function BoardTable({ category, limit }: { category: PostCategory, limit?: number }) {
+    const posts = PostManager.getPostList(category, limit ?? 20, "0")
+
     return (
-        <article class="home-panel">
-            <h2>공지사항</h2>
-            <ul class="board-list grow-1">
-                <a href="/notice/2">
-                    <li class="read">
-                        <div>제목제목제목제목 <span class="small-text">학사공지</span></div>
-                        <div>01/01</div>
-                    </li>
-                </a>
-                <li>
-                    <div>제목제목제목제목 <span class="small-text">컴퓨터학부</span></div>
-                    <div>01/01</div>
-                </li>
-                <li>
-                    <div>제목제목제목제목 <span class="small-text">IT대학</span></div>
-                    <div>01/01</div>
-                </li>
-            </ul>
-        </article>
+        <ul class="board-list grow-1">
+            {
+                posts.map((post) => {
+                    const createdAt = IdGenerator.getTime(post.id)
+                    let timestamp = ""
+                    if (new Date().getFullYear() != createdAt.getFullYear()) {
+                        timestamp = `${createdAt.getFullYear()}.`
+                    }
+                    timestamp += `${(createdAt.getMonth() + 1 + "").padStart(2,"0")}`
+                    timestamp += `.${(createdAt.getDate() + "").padStart(2,"0")}`
+
+                    return (
+                        <a href={post.remoteUrl ?? "#"}>
+                            <li>
+                                <div>{post.title} <span class="small-text">{post.source}</span></div>
+                                <div>{timestamp}</div>
+                            </li>
+                        </a>
+                    )
+                })
+            }
+        </ul>
     )
 }

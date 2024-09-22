@@ -130,6 +130,7 @@ ul.board-list {
         border-bottom: 1px solid var(--col-back-3);
         display: flex;
         justify-content: space-between;
+        color: var(--col-fore);
 
         &:hover, a:focus > & {
             background-color: var(--col-back-2);
@@ -137,8 +138,8 @@ ul.board-list {
 
         & > :nth-child(2) {
             color: var(--col-verbose);
-            width: 5ch;
             text-align: end;
+            font-family: "Consolas", "Fira Code", monospace;
         }
     }
 }
@@ -216,6 +217,7 @@ main.home {
         "notice card1"
         "notice card2";
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
     gap: 2rem;
 
     & > :nth-child(1) {
@@ -302,7 +304,6 @@ article.home-panel {
             }
         }
     }
-
 }
 
 p.wide-blocks {
