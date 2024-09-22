@@ -17,7 +17,7 @@ export function BoardTable({ category, limit }: { category: PostCategory, limit?
                     timestamp += `.${(createdAt.getDate() + "").padStart(2,"0")}`
 
                     return (
-                        <a href={post.remoteUrl ?? "#"}>
+                        <a href={post.remoteUrl ?? "#"} target="blank" key={post.id}>
                             <li>
                                 <div>{post.title} <span class="small-text">{post.source}</span></div>
                                 <div>{timestamp}</div>
